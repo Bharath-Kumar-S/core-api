@@ -3,5 +3,5 @@ POST http://localhost:5000/subscribe
 Content-Type: application/json
 
 {
-   "email": "bharathkumarkarthick@gmail.com"
+   "email": "bharath@gmail.com"
 }

@@ -6,6 +6,7 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Dc.no is required"],
       unique: true,
+      
     },
     invoice_no: {
       type: Number,
@@ -48,9 +49,6 @@ const orderSchema = new mongoose.Schema(
       {
         item_name: {
           type: String,
-        },
-        s_no: {
-          type: Number,
         },
         meta_data: {
           length: {

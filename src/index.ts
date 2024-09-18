@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import { postSubscriber } from "./controller/subscribeController";
+import { postOrder } from "./controller/orderController";
 dotenv.config();
 
 // Database Name
@@ -21,6 +22,7 @@ app.get("/health-check", (req, res) => {
 });
 
 app.post("/subscribe", postSubscriber);
+app.post("/order", postOrder);
 
 app.listen(PORT, async () => {
   console.log(

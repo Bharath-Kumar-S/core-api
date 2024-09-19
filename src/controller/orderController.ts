@@ -17,14 +17,25 @@ export const postOrder = async (req: Request, res: Response) => {
   } = req.body;
 
    // Data validation
-   if (to === undefined || e_way_no === undefined || party_gstin === undefined || hsn_code === undefined || product_description === undefined || items === undefined ||
-     vehicle_no === undefined || handling_charges === undefined || cgst === undefined || sgst === undefined)
+   if (to === "" || e_way_no === "" || party_gstin === "" || hsn_code === "" || product_description === "" ||
+     vehicle_no === "" || handling_charges === "" || cgst === "" || sgst === "")
     return res.status(400).json({ message: "All fields are required" });
 
    if (typeof to !== "string" || typeof e_way_no !== "string" || typeof party_gstin !== "string" || typeof hsn_code !== "string" || typeof product_description !== "string" || 
-    typeof items !== "string" || typeof vehicle_no !== "string" || typeof handling_charges !== "number" || typeof cgst !== "number" || typeof sgst !== "number" ||)
+       typeof vehicle_no !== "string" || typeof handling_charges !== "number" || typeof cgst !== "number" || typeof sgst !== "number" )
     return res.status(400).json({ message: "Invalid input type" });
 
+    if(!Array.isArray(items)){
+      return res.status(400).json({ message: "Invalid input" });
+    }
+
+    for  (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if(item  === null || item === undefined || item === ""){
+        return res.status(400).json({ message: "Items cannot be empty" });
+      }
+
+    }
   const dc_no = (await Orders.estimatedDocumentCount()) + 1;
   const invoice_no = dc_no;
   const party_dc_no = dc_no;
@@ -74,6 +85,8 @@ export const postOrder = async (req: Request, res: Response) => {
   return order ? res.status(201).send(order) : res.status(400).send("Error");
 };
 
+// @desc Get all orders
+// @route GET /orders
 export const getOrders = async (req: Request, res: Response) => {
   const orders = await Orders.find()
     // .select("deckId remaining shuffled type -_id")
@@ -81,9 +94,8 @@ export const getOrders = async (req: Request, res: Response) => {
   return res.status(200).json(orders);
 };
 
-// @desc Fetch Deck
-// @route GET /deck/deckId
-// @access Private
+// @desc Fetch order
+// @route GET /order/:dc_no
 export const getOrder = async (req: Request, res: Response) => {
   const { dc_no } = req.params;
   const order = await Orders.findOne({ dc_no: dc_no });

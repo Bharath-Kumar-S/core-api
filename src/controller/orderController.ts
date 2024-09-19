@@ -26,16 +26,34 @@ export const postOrder = async (req: Request, res: Response) => {
     return res.status(400).json({ message: "Invalid input type" });
 
     if(!Array.isArray(items)){
-      return res.status(400).json({ message: "Invalid input" });
+      return res.status(400).json({ message: "Invalid input array" });
     }
 
     for  (let i = 0; i < items.length; i++) {
       const item = items[i];
-      if(item  === null || item === undefined || item === ""){
-        return res.status(400).json({ message: "Items cannot be empty" });
+      if (item.item_name === " " || 
+          item.meta_data.length === " " ||
+          item.meta_data.width === " " ||
+          item.meta_data.height === " " ||
+          item.quantity === " " ||
+          item.material_value === " " ||
+          item.total_weight === " " ||
+          item.rate === " ") {
+        return res.status(400).json({ message: "Item fields are required" });
       }
-
+      if(typeof item.item_name !== "string" ||
+        typeof item.meta_data !== "object" ||
+        typeof item.meta_data.length !== "number" ||
+        typeof item.meta_data.width !== "number" ||
+        typeof item.meta_data.height !== "number" ||
+        typeof item.quantity !== "number" ||
+        typeof item.material_value !== "string" ||
+        typeof item.total_weight !== "string" ||
+        typeof item.rate !== "number"){
+        return res.status(400).json({ message: "Invalid item format" });
+      }
     }
+
   const dc_no = (await Orders.estimatedDocumentCount()) + 1;
   const invoice_no = dc_no;
   const party_dc_no = dc_no;

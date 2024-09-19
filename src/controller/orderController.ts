@@ -16,7 +16,6 @@ export const postOrder = async (req: Request, res: Response) => {
     sgst,
   } = req.body;
 
- 
   const dc_no = (await Orders.estimatedDocumentCount()) + 1;
   const invoice_no = dc_no;
   const party_dc_no = dc_no;
@@ -40,7 +39,6 @@ export const postOrder = async (req: Request, res: Response) => {
   const calculatedSgst = calculateSgst(net_total);
   const calculatedCgst = calculateCgst(net_total);
   const gross_total = net_total + calculatedSgst + calculatedCgst;
- 
 
   const order = await Orders.create({
     to,
@@ -64,7 +62,26 @@ export const postOrder = async (req: Request, res: Response) => {
     gross_total,
   });
 
-  return order 
-  ? res.status(201).send(order) 
-  : res.status(400).send("Error");
+  return order ? res.status(201).send(order) : res.status(400).send("Error");
+};
+
+export const getOrders = async (req: Request, res: Response) => {
+  const orders = await Orders.find()
+    // .select("deckId remaining shuffled type -_id")
+    .lean();
+  return res.status(200).json(orders);
+};
+
+// @desc Fetch Deck
+// @route GET /deck/deckId
+// @access Private
+export const getOrder = async (req: Request, res: Response) => {
+  const { dc_no } = req.params;
+  const order = await Orders.findOne({ dc_no: dc_no });
+  // .select(
+  //   "deckId remaining shuffled type cards -_id"
+  // );
+  order
+    ? res.status(200).json(order)
+    : res.status(400).json({ message: "Invalid dc_no received" });
 };

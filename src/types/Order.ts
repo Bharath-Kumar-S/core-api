@@ -1,5 +1,5 @@
 export type OrderType = {
-  to: String;
+  to: any;
   e_way_no: String;
   dc_no: Number;
   invoice_no: Number;

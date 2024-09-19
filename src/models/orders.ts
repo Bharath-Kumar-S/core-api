@@ -1,6 +1,8 @@
+import { strict } from "assert";
 import mongoose from "mongoose";
+import { OrderType } from "../types/Order";
 
-const orderSchema = new mongoose.Schema(
+const orderSchema = new mongoose.Schema <OrderType >(
   {
     dc_no: {
       type: Number,
@@ -15,9 +17,10 @@ const orderSchema = new mongoose.Schema(
     to: {
       type: String,
       required: [true, "To address is required"],
+      strict: true
     },
     date: {
-      type: String,
+      type: Date,
       required: [true, "Date is required"],
     },
     e_way_no: {
@@ -29,7 +32,7 @@ const orderSchema = new mongoose.Schema(
       required: [true, "Party dc no required"],
     },
     party_dc_date: {
-      type: String,
+      type: Date,
       required: [true, "Dc_date is required"],
     },
     party_gstin: {
@@ -38,7 +41,8 @@ const orderSchema = new mongoose.Schema(
     },
     hsn_code: {
       type: String,
-      enum: ["998898", "997212", "73084000"],
+      required: [true, "Hsn code is required"],
+
     },
     product_description: {
       type: String,

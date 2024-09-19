@@ -18,6 +18,8 @@ export const postOrder = async (req: Request, res: Response) => {
     total_weight,
   } = req.body;
 
+  console.log(req.body)
+
   const values = {
     to,
     e_way_no,

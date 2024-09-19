@@ -16,6 +16,15 @@ export const postOrder = async (req: Request, res: Response) => {
     sgst,
   } = req.body;
 
+   // Data validation
+   if (to === undefined || e_way_no === undefined || party_gstin === undefined || hsn_code === undefined || product_description === undefined || items === undefined ||
+     vehicle_no === undefined || handling_charges === undefined || cgst === undefined || sgst === undefined)
+    return res.status(400).json({ message: "All fields are required" });
+
+   if (typeof to !== "string" || typeof e_way_no !== "string" || typeof party_gstin !== "string" || typeof hsn_code !== "string" || typeof product_description !== "string" || 
+    typeof items !== "string" || typeof vehicle_no !== "string" || typeof handling_charges !== "number" || typeof cgst !== "number" || typeof sgst !== "number" ||)
+    return res.status(400).json({ message: "Invalid input type" });
+
   const dc_no = (await Orders.estimatedDocumentCount()) + 1;
   const invoice_no = dc_no;
   const party_dc_no = dc_no;

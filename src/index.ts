@@ -3,15 +3,12 @@ import cors from "cors";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import { postSubscriber } from "./controller/subscribeController";
-import { postOrder, getOrders, getOrder } from "./controller/orderController";
+import { orderRouter } from "./router/order";
 
 dotenv.config();
 
-// Database Name
-const dbName = "polar-web-io";
-
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT === undefined ? 5001 : process.env.PORT;
 
 app.use(express.json());
 app.use(cors());
@@ -23,10 +20,7 @@ app.get("/health-check", (req, res) => {
 });
 
 app.post("/subscribe", postSubscriber);
-app.post("/order", postOrder);
-
-app.get("/orders", getOrders);
-app.get("/order/:dc_no", getOrder);
+app.use("/orders", orderRouter);
 
 app.listen(PORT, async () => {
   console.log(

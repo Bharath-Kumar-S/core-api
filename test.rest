@@ -5,3 +5,51 @@ Content-Type: application/json
 {
    "email": "bharathkumarkarthick@gmail.com"
 }
+
+#######
+Get http://localhost:5001/orders?page=6
+
+######
+Get http://localhost:5001/orders/1
+
+#######
+POST http://localhost:5001/orders
+Content-Type: application/json
+
+{
+  "to": "thwrthhshrtgh",
+  "e_way_no": "EWN1234567890",
+  "party_dc_no": "DC0987654321",
+  "party_dc_date": "2024-09-18",
+  "party_gstin": "22ABCDE1234F2Z5",
+  "hsn_code": "998898",
+  "product_description": "Electronic Components",
+  "items": [
+    {
+      "quantity": 100,
+      "meta_data":{
+          "length":143,
+          "width":235
+      },
+      "material_value":50555,
+      "rate": 0.15,
+      "image":"jhvjb,j"
+    },
+    {
+      "quantity": 123,
+      "meta_data":{
+          "length":15,
+          "width":35
+      },
+      "material_value":5000,
+      "total_weight": 100,
+      "rate": 1,
+      "image":"hgcjhgcjhyc"
+    }
+  ],
+  "vehicle_no": "KA03AB1234",
+   "total_weight": 333,
+  "handling_charges": 100,
+  "cgst": 6,
+  "sgst": 6
+}

@@ -6,7 +6,6 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Dc.no is required"],
       unique: true,
-      
     },
     invoice_no: {
       type: Number,
@@ -47,15 +46,14 @@ const orderSchema = new mongoose.Schema(
     },
     items: [
       {
-        item_name: {
-          type: String,
-        },
         meta_data: {
           length: {
             type: Number,
+            required: [true, "length is required"],
           },
           width: {
             type: Number,
+            required: [true, "width is required"],
           },
           height: {
             type: Number,
@@ -63,21 +61,23 @@ const orderSchema = new mongoose.Schema(
         },
         quantity: {
           type: Number,
+          required: [true, "quantity is required"],
         },
         material_value: {
           type: String,
-        },
-        total_weight: {
-          type: String,
+          required: [true, "material_value is required"],
         },
         rate: {
           type: Number,
+          required: [true, "rate is required"],
         },
         amount: {
           type: Number,
+          required: [true, "amount is required"],
         },
         image: {
           type: String,
+          required: [true, "image is required"],
         },
       },
     ],
@@ -100,6 +100,9 @@ const orderSchema = new mongoose.Schema(
     sgst: {
       type: Number,
       required: [true, "sgst is required"],
+    },
+    total_weight: {
+      type: String,
     },
     gross_total: {
       type: Number,

@@ -53,3 +53,6 @@ Content-Type: application/json
   "cgst": 6,
   "sgst": 6
 }
+
+######
+Get http://localhost:5001/orders/pdf/1

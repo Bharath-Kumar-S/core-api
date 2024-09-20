@@ -2,6 +2,8 @@ import { Orders } from "../models/orders";
 import { Request, Response } from "express";
 import { calculateCgst, calculateSgst } from "../utils/utils";
 import { OrderType } from "../types/Order";
+import { createPdf } from "../utils/createPdf";
+import { Readable } from "stream";
 
 export const postOrder = async (req: Request, res: Response) => {
   const {
@@ -134,4 +136,46 @@ export const getOrder = async (req: Request, res: Response) => {
   order
     ? res.status(200).json(order)
     : res.status(400).json({ message: "Invalid dc_no received" });
+};
+
+export const generatePDF = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    // Fetch the order using the provided dc_no
+    console.log("Fetching order...");
+    const order = await Orders.findOne({ dc_no: id });
+
+    // If no order is found, return 400 error
+    if (!order) {
+      return res.status(400).json({ message: "Invalid dc_no received" });
+    }
+
+    // Generate the PDF document using createPdf
+    console.log("Generating PDF...");
+    const pdfDoc = createPdf(order);
+
+    // If PDF generation fails, return 500 error
+    if (!pdfDoc) {
+      return res.status(500).json({ error: "Failed to generate PDF" });
+    }
+
+    // Use getBuffer instead of streaming for testing
+    pdfDoc.getBuffer((buffer: Buffer) => {
+      // If there's an issue creating the buffer, return a 500 error
+      if (!buffer) {
+        return res.status(500).json({ error: "Error generating PDF buffer" });
+      }
+
+      // Set the appropriate headers for PDF download
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader("Content-Disposition", 'attachment; filename="order.pdf"');
+
+      // Send the buffer as the response
+      res.send(buffer);
+    });
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    res.status(500).json({ error: "Failed to generate PDF" });
+  }
 };

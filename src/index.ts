@@ -2,7 +2,14 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
-import { postSubscriber } from "./controller/subscribeController";
+import {
+  deleteSubscriber,
+  getSubscriber,
+  getSubscriberById,
+  updateSubscriber,
+} from "./controller/subscribeController";
+import { authRouter } from "./router/auth";
+import { postSubscriber } from "./controller/eventBasedSubscribers";
 dotenv.config();
 
 // Database Name
@@ -14,13 +21,19 @@ const PORT = 5000;
 app.use(express.json());
 app.use(cors());
 
+app.get("/auth", authRouter);
+
 app.get("/health-check", (req, res) => {
   res.send({
     status: "OK",
   });
 });
 
-app.post("/subscribe", postSubscriber);
+app.post("/subscribers", postSubscriber);
+app.get("/subscribers", getSubscriber);
+app.get("/subscribers/:id", getSubscriberById);
+app.patch("/subscribers/:id", updateSubscriber);
+app.delete("/subscribers/:id", deleteSubscriber);
 
 app.listen(PORT, async () => {
   console.log(

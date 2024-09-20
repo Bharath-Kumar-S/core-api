@@ -16,9 +16,9 @@ export const postOrder = async (req: Request, res: Response) => {
     cgst,
     sgst,
     total_weight,
+    party_dc_date,
+    date,
   } = req.body;
-
-  console.log(req.body)
 
   const values = {
     to,
@@ -37,8 +37,6 @@ export const postOrder = async (req: Request, res: Response) => {
   const dc_no = (await Orders.estimatedDocumentCount()) + 1;
   const invoice_no = dc_no;
   const party_dc_no = dc_no;
-  const party_dc_date = new Date();
-  const date = new Date();
   const calculatedItems = items.map(
     (item: { quantity: number; rate: number }) => {
       return {

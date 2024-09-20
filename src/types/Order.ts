@@ -3,9 +3,9 @@ export type OrderType = {
   e_way_no: String;
   dc_no: Number;
   invoice_no: Number;
-  date: Date;
+  date: String;
   party_dc_no: Number;
-  party_dc_date: Date;
+  party_dc_date: String;
   party_gstin: String;
   hsn_code: "998898" | "997212" | "73084000";
   product_description: String;

@@ -19,10 +19,13 @@ app.get("/health-check", (req, res) => {
   });
 });
 
+app.get("/api/healthcheck", (re, res) => {
+  res.status(200).send("OK");
+});
 app.post("/subscribe", postSubscriber);
 app.use("/orders", orderRouter);
 
-app.listen(PORT, async () => {
+const server = app.listen(PORT, async () => {
   console.log(
     `⚡️⚡️⚡️[server]: Server is running at https://localhost:${PORT} ⚡️⚡️⚡️`
   );
@@ -40,3 +43,5 @@ app.listen(PORT, async () => {
     console.log(err);
   }
 });
+
+export { app, server };

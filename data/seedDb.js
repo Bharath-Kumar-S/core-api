@@ -13,10 +13,16 @@ const createOrder = async () => {
     const data = await response.json();
     console.log(data);
   } catch (err) {
+    console.log("Error creating order");
     console.log(err);
+    throw err;
   }
 };
 
 (async () => {
-  await createOrder();
+  console.log("Creating order");
+  for (let i = 0; i < 10; i++) {
+    await createOrder();
+  }
+  console.log("Order created");
 })();

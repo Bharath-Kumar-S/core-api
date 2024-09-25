@@ -1,4 +1,3 @@
-
 POST http://localhost:5000/subscribe
 Content-Type: application/json
 
@@ -10,7 +9,7 @@ Content-Type: application/json
 Get http://localhost:5001/orders?page=1
 
 ######
-Get http://localhost:5001/orders/1
+Get http://localhost:5001/orders
 
 #######
 POST http://localhost:5001/orders

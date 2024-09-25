@@ -19,6 +19,7 @@ Content-Type: application/json
 {
   "to":100,
   "e_way_no": 300,
+  "date": "2024-09-18",
   "party_dc_no": "asdf" ,
   "party_dc_date": "2024-09-18",
   "party_gstin": "22ABCDE1234F2Z5",

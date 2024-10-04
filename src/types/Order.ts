@@ -16,7 +16,7 @@ export type OrderType = {
         width: Number;
       };
       quantity: Number;
-      material_value: Number;
+      
       total_weight: Number;
       rate: Number;
       amount: Number;
@@ -25,8 +25,11 @@ export type OrderType = {
   ];
   vehicle_no: String;
   handling_charges: Number;
+  material_value: Number;
   cgst: Number;
   sgst: Number;
+  calculatedSgst: Number;
+  calculatedCgst: Number;
   net_total: Number;
   gross_total: Number;
   total_weight?: Number;

@@ -66,10 +66,6 @@ const orderSchema = new mongoose.Schema<OrderType>(
           type: Number,
           required: [true, "quantity is required"],
         },
-        material_value: {
-          type: String,
-          required: [true, "material_value is required"],
-        },
         rate: {
           type: Number,
           required: [true, "rate is required"],
@@ -84,6 +80,10 @@ const orderSchema = new mongoose.Schema<OrderType>(
         },
       },
     ],
+    material_value: {
+      type: String,
+      required: [true, "material_value is required"],
+    },
     vehicle_no: {
       type: String,
       required: [true, "Vechicle no is required"],
@@ -101,6 +101,14 @@ const orderSchema = new mongoose.Schema<OrderType>(
       required: [true, "cgst is required"],
     },
     sgst: {
+      type: Number,
+      required: [true, "sgst is required"],
+    },
+    calculatedSgst: {
+      type: Number,
+      required: [true, "cgst is required"],
+    },
+    calculatedCgst: {
       type: Number,
       required: [true, "sgst is required"],
     },

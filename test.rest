@@ -17,38 +17,164 @@ POST http://localhost:5001/orders
 Content-Type: application/json
 
 {
-  "to":100,
-  "e_way_no": 300,
-  "party_dc_no": "asdf" ,
-  "party_dc_date": "2024-09-18",
+  "to": "Karthick industries Invoice and Dc PDF",
+  "e_way_no": 33,
+  "party_dc_no": "asdf",
+  "date": "2023-12-18T",
+  "party_dc_date": "2023-12-18T",
   "party_gstin": "22ABCDE1234F2Z5",
   "hsn_code": "998898666",
-  "product_description":"345",
+  "product_description": "Description regarding the product",
   "items": [
     {
-      "quantity":"45",
-      "meta_data":{
-          "length":"5",
-          "width":235
+      "quantity": "45",
+      "meta_data": {
+        "length": "5",
+        "width": 235
       },
-      "material_value":"45000",
-      "rate": 0.15,
-      "image":"jhvjb,j"
+      "rate": 1,
+      "image": "jhvjb,j"
     },
     {
       "quantity": 123,
-      "meta_data":{
-          "length":15,
-          "width":35
+      "meta_data": {
+        "length": 15,
+        "width": 35
       },
-      "material_value":5000,
       "total_weight": 100,
       "rate": 1,
-      "image":"hgcjhgcjhyc"
+      "image": "hgcjhgcjhyc"
+    },
+    {
+      "quantity": 50,
+      "meta_data": {
+        "length": 10,
+        "width": 120
+      },
+      "rate": 2,
+      "image": "image1"
+    },
+    {
+      "quantity": 75,
+      "meta_data": {
+        "length": 8,
+        "width": 90
+      },
+      "rate": 3,
+      "image": "image2"
+    },
+    {
+      "quantity": 100,
+      "meta_data": {
+        "length": 12,
+        "width": 50
+      },
+      "rate": 4,
+      "image": "image3"
+    },
+    {
+      "quantity": 200,
+      "meta_data": {
+        "length": 25,
+        "width": 75
+      },
+      "rate": 5,
+      "image": "image4"
+    },
+    {
+      "quantity": 80,
+      "meta_data": {
+        "length": 18,
+        "width": 65
+      },
+      "rate": 6,
+      "image": "image5"
+    },
+    {
+      "quantity": 60,
+      "meta_data": {
+        "length": 20,
+        "width": 95
+      },
+      "rate": 7,
+      "image": "image6"
+    },
+    {
+      "quantity": 90,
+      "meta_data": {
+        "length": 14,
+        "width": 85
+      },
+      "rate": 8,
+      "image": "image7"
+    },
+    {
+      "quantity": 55,
+      "meta_data": {
+        "length": 9,
+        "width": 45
+      },
+      "rate": 9,
+      "image": "image8"
+    },
+    {
+      "quantity": 130,
+      "meta_data": {
+        "length": 22,
+        "width": 110
+      },
+      "rate": 10,
+      "image": "image9"
+    },
+    {
+      "quantity": 110,
+      "meta_data": {
+        "length": 16,
+        "width": 55
+      },
+      "rate": 11,
+      "image": "image10"
+    },
+    {
+      "quantity": 95,
+      "meta_data": {
+        "length": 19,
+        "width": 60
+      },
+      "rate": 12,
+      "image": "image11"
+    },
+    {
+      "quantity": 85,
+      "meta_data": {
+        "length": 11,
+        "width": 100
+      },
+      "rate": 13,
+      "image": "image12"
+    },
+    {
+      "quantity": 115,
+      "meta_data": {
+        "length": 21,
+        "width": 130
+      },
+      "rate": 14,
+      "image": "image13"
+    },
+    {
+      "quantity": 125,
+      "meta_data": {
+        "length": 24,
+        "width": 140
+      },
+      "rate": 15,
+      "image": "image14"
     }
   ],
   "vehicle_no": 455,
-   "total_weight": 333,
+  "total_weight": 333,
+  "material_value": 123456,
   "handling_charges": 0.5,
   "cgst": 6,
   "sgst": 6

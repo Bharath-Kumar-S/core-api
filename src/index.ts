@@ -6,6 +6,9 @@ import { postSubscriber } from "./controller/subscribeController";
 import { orderRouter } from "./router/order";
 import { generatePDF } from "./controller/orderController";
 import { generateDcPDF } from "./utils/utils";
+import cookieParser from "cookie-parser";
+import { authRouter } from "./router/auth.routes";
+import { usersRouter } from "./router/users.routes";
 
 dotenv.config();
 
@@ -13,7 +16,14 @@ const app = express();
 const PORT = process.env.PORT === undefined ? 5001 : process.env.PORT;
 
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/health-check", (req, res) => {
   res.send({
@@ -28,6 +38,8 @@ app.post("/subscribe", postSubscriber);
 app.use("/orders", orderRouter);
 app.get("/pdf/:id", generatePDF);
 app.get("/dc/:id", generateDcPDF)
+app.use("/api/auth", authRouter);
+app.use("/api/users", usersRouter);
      
 const server = app.listen(PORT, async () => {
   console.log(

@@ -151,7 +151,6 @@ export const generatePDF = async (req: Request, res: Response) => {
     // Fetch the order using the provided dc_no
     console.log("Fetching order...");
     const order = await Orders.findOne({ dc_no: id });
-    console.log(order?.date)
     
 
     // If no order is found, return 400 error
@@ -166,7 +165,7 @@ export const generatePDF = async (req: Request, res: Response) => {
     const formattedDate = date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
 
     const dcDate = new Date(order.party_dc_date.substring(0,10));
-    const formattedDcdate = date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+    const formattedDcdate = dcDate.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
 
     
     
@@ -182,9 +181,9 @@ export const generatePDF = async (req: Request, res: Response) => {
   </head>
   <body class="text-black font-sans text-xs pl-1">
 
-    <div class = "mt-3">
+    <div class = "mt-14">
       <div
-        class="grid grid-cols-12 h-[75%] w-[98%] mt-10  absolute left-0 top-0 bottom-0 right-0 pl-3"
+        class="grid grid-cols-12 h-[75%] w-[98%] mt-14  absolute left-0 top-0 bottom-0 right-0 pl-3"
       >
         <div class="col-span-1 border-r border-l border-black"></div>
         <div class="col-span-7 border-r border-black"></div>
@@ -196,7 +195,7 @@ export const generatePDF = async (req: Request, res: Response) => {
       <div
         class="ml-2 mt-9 pr-1 border-t border-l  border-black relative left-0 top-0 bottom-0 w-[97%]"
       >
-        <div class="bg-white">
+        <div class="bg-white border-black border-t">
           <div class="grid grid-cols-12 border-b border-black">
             <div class="col-span-3 border-r border-black p-2">
               <h1 class="font-bold text-lg">GSTIN:</h1>
@@ -223,8 +222,8 @@ export const generatePDF = async (req: Request, res: Response) => {
             <div class="col-span-9">
               <div>
                 <div class="p-2 flex font-bold">
-                  <div class="text-nowrap mr-2">Invoice #:</div>
-                  <div>
+                  <div class="text-nowrap mr-2 text-xl">Invoice #:</div>
+                  <div class="text-xl">
                   ${order.invoice_no}
                   </div>
                 </div>
@@ -232,7 +231,7 @@ export const generatePDF = async (req: Request, res: Response) => {
             </div>
             <div class="col-span-3 border-l border-black ">
               <div>
-                <div class="p-2 flex font-bold">
+                <div class="p-2 flex font-bold mt-1">
                   <div class="text-nowrap mr-2 ">Date:</div>
                   <div>
                   ${formattedDate}
@@ -307,11 +306,11 @@ export const generatePDF = async (req: Request, res: Response) => {
 
         <div>
           <div class="grid grid-cols-12 border-b border-black text-center ">
-            <div class="col-span-1 p-1 font-bold">SL #</div>
-            <div class="col-span-7 p-1 font-bold">PRODUCT DESCRIPTION</div>
-            <div class="col-span-1 p-1 font-bold">QTY</div>
-            <div class="col-span-1 p-1 font-bold">RATE</div>
-            <div class="col-span-2 p-1 font-bold ">AMOUNT</div>
+            <div class="col-span-1 p-2 font-bold">SL #</div>
+            <div class="col-span-7 p-2 font-bold">PRODUCT DESCRIPTION</div>
+            <div class="col-span-1 p-2 font-bold">QTY</div>
+            <div class="col-span-1 p-2 font-bold">RATE</div>
+            <div class="col-span-2 p-2 font-bold ">AMOUNT</div>
           </div>
           <div>
             <div class="relative left-20 p-2">
@@ -334,7 +333,7 @@ export const generatePDF = async (req: Request, res: Response) => {
                 </div>
           </div>
           <div
-            class="bg-white border border-r border-black absolute w-[100%] top-[730px] right-0 left-0"
+            class="bg-white border border-r border-black absolute w-[100%] top-[850px] right-0 left-0"
           >
             <div class="grid grid-cols-12 border-b border-black">
               <div class="p-1 col-span-8 border-r border-black font-bold">
@@ -420,10 +419,10 @@ export const generatePDF = async (req: Request, res: Response) => {
 
     await page.setContent(htmlContent);
     const pdfBuffer = await page.pdf({
-      // format: "A4",
+      format: "A4",
       printBackground: true,
-      width:'8.20in',
-      height:'10.50in'
+      // width:'8.20in',
+      // height:'10.50in'
     });
 
     await browser.close();

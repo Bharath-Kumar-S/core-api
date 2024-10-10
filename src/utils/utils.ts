@@ -17,10 +17,10 @@ export const calculateCgst = (amount: number) => {
 };
 
 export const numberToWords = (num: number): string => {
-  const ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-  const teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-  const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-  const thousands = ['', 'thousand', 'lakh', 'billion'];
+  const ones = ['', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE']
+  const teens = ['TEN', 'ELEVEN', 'TWELVE', 'THIRTEEN', 'FOURTEEN', 'FIFTEEN', 'SIXTEEN', 'SEVENTEEN', 'EIGHTEEN', 'NINETEEN']
+  const tens = ['', '', 'TWENTY', 'THIRTY', 'FORTY', 'FIFTY', 'SIXTY', 'SEVENTY', 'EIGHTY', 'NINETY'];
+  const thousands = ['', 'THOUSAND', 'LAKH', 'BILLION'];
 
   if (isNaN(num)) {
     throw new Error('Invalid input. Please enter a valid number.');
@@ -43,7 +43,7 @@ export const numberToWords = (num: number): string => {
   }
 
   if (decimalPart > 0) {
-    result += ' rupees and ' + helper(decimalPart) + ' paise';
+    result += ' RUPEES AND ' + helper(decimalPart) + ' PAISE';
   }
 
   return result.trim();
@@ -53,7 +53,7 @@ export const numberToWords = (num: number): string => {
     if (num < 10) return ones[num];
     if (num < 20) return teens[num - 10];
     if (num < 100) return tens[Math.floor(num / 10)] + (num % 10 !== 0 ? ' ' + ones[num % 10] : '');
-    return ones[Math.floor(num / 100)] + ' hundred' + (num % 100 !== 0 ? ' ' + helper(num % 100) : '');
+    return ones[Math.floor(num / 100)] + ' HUNDRED' + (num % 100 !== 0 ? ' ' + helper(num % 100) : '');
   }
 };
 export const generateDcPDF = async (req: Request, res: Response) => {
@@ -89,20 +89,20 @@ export const generateDcPDF = async (req: Request, res: Response) => {
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
   </head>
-  <body class="text-black font-sans text-xs pt-10">
+  <body class="text-black font-sans text-xs pt-5">
     <div class="h-[100%] w-[100%] pt-4 ml-1 mt-10 border-white border-t">
       <div
-        class="grid grid-cols-12  ml-2 h-[80%] w-[98%] mt-16  absolute left-0 top-10 bottom-0 right-0 pl-2"
+        class="grid grid-cols-12  ml-2 h-[80%] w-[98%] mt-11  absolute left-0 top-10 bottom-0 right-0 pl-2"
       >
         <div class="col-span-1 border-r border-l border-black"></div>
         <div class="col-span-8 border-r border-black"></div>
-        <div class="col-span-3 border-r border-black"></div>
+        <div class="col-span-3 border-r border-black ml-1"></div>
       </div>
 
       <div
         class="ml-3 mt-1 pr-1 border-t border-l border-black relative left-0 top-0 bottom-0 w-[97%]"
       >
-        <div class="bg-white">
+        <div class="bg-white border-black border-t ">
           <div class="grid grid-cols-12 border-b border-black">
             <div class="col-span-3 border-r border-black p-2">
               <h1 class="font-bold text-lg">GSTIN:</h1>
@@ -129,8 +129,8 @@ export const generateDcPDF = async (req: Request, res: Response) => {
             <div class="col-span-9">
               <div>
                 <div class="p-2 flex font-bold">
-                  <div class="text-nowrap mr-2">DC # :</div>
-                  <div>
+                  <div class="text-nowrap mr-2 text-xl">DC # :</div>
+                  <div class="text-xl">
                   ${order.dc_no}
                   </div>
                 </div>
@@ -138,7 +138,7 @@ export const generateDcPDF = async (req: Request, res: Response) => {
             </div>
             <div class="col-span-3 border-l border-black">
               <div>
-                <div class="p-2 flex font-bold">
+                <div class="p-2 flex font-bold mt-1">
                   <div class="text-nowrap mr-2">Date:</div>
                   <div>
                   ${formattedDate}
@@ -250,6 +250,7 @@ export const generateDcPDF = async (req: Request, res: Response) => {
                   DUE DATE PLEASE PAY
                 </p>
                 <p>BY A/C PAYEE CHEQUE / DRAFT PAYABLE AT CHENNAI</p>
+                <div class="h-16 mt-2 ml-32 text-sm ">Receiver's signature</div>
               </div>
               <div
                 class="col-span-5 border-black border-r border-b flex flex-col justify-between"

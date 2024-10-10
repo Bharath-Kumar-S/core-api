@@ -18,12 +18,12 @@ Content-Type: application/json
 
 {
   "to": "Karthick industries Invoice and Dc PDF",
-  "e_way_no": 33,
+  "e_way_no": "334567787878756, 45555534534345",
   "party_dc_no": "asdf",
-  "date": "2023-12-18T",
-  "party_dc_date": "2023-12-18T",
+  "date": "2003-11-02T20:03:20.116Z",
+  "party_dc_date": "2003-11-02T20:03:20.116Z",
   "party_gstin": "22ABCDE1234F2Z5",
-  "hsn_code": "998898666",
+  "hsn_code": "998898666,99666666",
   "product_description": "Description regarding the product",
   "items": [
     {

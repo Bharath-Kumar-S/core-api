@@ -118,20 +118,82 @@ export const postOrder = async (req: Request, res: Response) => {
 // @desc Get all orders
 // @route GET /orders
 export const getOrders = async (req: Request, res: Response) => {
-  const { page, limit } = req.query;
-  const pageNumber = parseInt(page as string) || 1;
-  const limitNumber = parseInt(limit as string) || 10;
-  const skip = (pageNumber - 1) * limitNumber;
-  const orders = await Orders.find().lean();
-  const total = await Orders.countDocuments();
-  const totalPages = Math.ceil(total / limitNumber);
-  const data = {
-    page: pageNumber,
-    total,
-    totalPages,
-    orders: orders.slice(skip, skip + limitNumber),
-  };
-  return res.status(200).json(data);
+  try {
+    const { page, limit, search } = req.query;
+
+    // Determine if a search query is present
+    const hasSearch = search && typeof search === "string" && search.trim() !== "";
+
+    if (hasSearch) {
+      // Handle Search: Return all matching orders without pagination
+      const searchTerm = search.trim();
+      const searchNumber = Number(searchTerm);
+
+      // Build the search query
+      let query = {};
+
+      if (!isNaN(searchNumber)) {
+        // If search is a number, search both 'to' field and 'dc_no'
+        query = {
+          $or: [
+            // { to: { $regex: searchTerm, $options: "i" } }, // Case-insensitive search on 'to' field
+            { dc_no: searchNumber }, // Exact match on 'dc_no' if search is a number
+          ],
+        };
+      } else {
+        // If search is not a number, search only the 'to' field
+        query = {
+          to: { $regex: searchTerm, $options: "i" }, // Case-insensitive search
+        };
+      }
+
+      // Fetch all matching orders
+      const orders = await Orders.find(query)
+        .sort({ dc_no: 1 }) // Optional: Sort by date descending
+        .lean();
+
+      // Construct response data
+      const data = {
+        page: 1,
+        total: orders.length,
+        totalPages: 1,
+        orders,
+      };
+
+      return res.status(200).json(data);
+    } else {
+      // Handle Pagination: Return paginated orders
+      const pageNumber = parseInt(page as string, 10) || 1;
+      const limitNumber = parseInt(limit as string, 10) || 10;
+      const skip = (pageNumber - 1) * limitNumber;
+
+      // Fetch total count
+      const total = await Orders.countDocuments();
+
+      // Calculate total pages
+      const totalPages = Math.ceil(total / limitNumber);
+
+      // Fetch paginated orders
+      const orders = await Orders.find()
+        .sort({ dc_no: 1 }) // Optional: Sort by date descending
+        .skip(skip)
+        .limit(limitNumber)
+        .lean();
+
+      // Construct response data
+      const data = {
+        page: pageNumber,
+        total,
+        totalPages,
+        orders,
+      };
+
+      return res.status(200).json(data);
+    }
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    return res.status(500).json({ message: "Server Error" });
+  }
 };
 
 // @desc Fetch order

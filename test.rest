@@ -31,7 +31,6 @@ Content-Type: application/json
           "length":"5",
           "width":235
       },
-      "material_value":"45000",
       "rate": 0.15,
       "image":"jhvjb,j"
     },
@@ -41,12 +40,13 @@ Content-Type: application/json
           "length":15,
           "width":35
       },
-      "material_value":5000,
-      "total_weight": 100,
+      
       "rate": 1,
       "image":"hgcjhgcjhyc"
     }
   ],
+  "material_value":5000,
+  "total_weight": 100,
   "vehicle_no": 455,
    "total_weight": 333,
   "handling_charges": 0.5,

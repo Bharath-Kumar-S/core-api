@@ -27,155 +27,105 @@ Content-Type: application/json
   "items": [
     {
       "quantity": "45",
-      "meta_data": {
-        "length": "5",
-        "width": 235
-      },
-      "rate": 1,
-      "image": "jhvjb,j"
+      "length": "5",
+      "width": 235,
+      "rate": 1
     },
     {
       "quantity": 123,
-      "meta_data": {
-        "length": 15,
-        "width": 35
-      },
-      "total_weight": 100,
-      "rate": 1,
-      "image": "hgcjhgcjhyc"
+      "length": 15,
+      "width": 35,
+
+      "rate": 1
     },
     {
       "quantity": 50,
-      "meta_data": {
-        "length": 10,
-        "width": 120
-      },
-      "rate": 2,
-      "image": "image1"
+      "length": 10,
+      "width": 120,
+      "rate": 2
     },
     {
       "quantity": 75,
-      "meta_data": {
-        "length": 8,
-        "width": 90
-      },
-      "rate": 3,
-      "image": "image2"
+      "length": 8,
+      "width": 90,
+      "rate": 3
     },
     {
       "quantity": 100,
-      "meta_data": {
-        "length": 12,
-        "width": 50
-      },
-      "rate": 4,
-      "image": "image3"
+      "length": 12,
+      "width": 50,
+      "rate": 4
     },
     {
       "quantity": 200,
-      "meta_data": {
-        "length": 25,
-        "width": 75
-      },
-      "rate": 5,
-      "image": "image4"
+      "length": 25,
+      "width": 75,
+      "rate": 5
     },
     {
       "quantity": 80,
-      "meta_data": {
-        "length": 18,
-        "width": 65
-      },
-      "rate": 6,
-      "image": "image5"
+      "length": 18,
+      "width": 65,
+      "rate": 6
     },
     {
       "quantity": 60,
-      "meta_data": {
-        "length": 20,
-        "width": 95
-      },
-      "rate": 7,
-      "image": "image6"
+      "length": 20,
+      "width": 95,
+      "rate": 7
     },
     {
       "quantity": 90,
-      "meta_data": {
-        "length": 14,
-        "width": 85
-      },
-      "rate": 8,
-      "image": "image7"
+      "length": 14,
+      "width": 85,
+      "rate": 8
     },
     {
       "quantity": 55,
-      "meta_data": {
-        "length": 9,
-        "width": 45
-      },
-      "rate": 9,
-      "image": "image8"
+      "length": 9,
+      "width": 45,
+      "rate": 9
     },
     {
       "quantity": 130,
-      "meta_data": {
-        "length": 22,
-        "width": 110
-      },
-      "rate": 10,
-      "image": "image9"
+      "length": 22,
+      "width": 110,
+      "rate": 10
     },
     {
       "quantity": 110,
-      "meta_data": {
-        "length": 16,
-        "width": 55
-      },
-      "rate": 11,
-      "image": "image10"
+      "length": 16,
+      "width": 55,
+      "rate": 11
     },
     {
       "quantity": 95,
-      "meta_data": {
-        "length": 19,
-        "width": 60
-      },
-      "rate": 12,
-      "image": "image11"
+      "length": 19,
+      "width": 60,
+      "rate": 12
     },
     {
       "quantity": 85,
-      "meta_data": {
-        "length": 11,
-        "width": 100
-      },
-      "rate": 13,
-      "image": "image12"
+      "length": 11,
+      "width": 100,
+      "rate": 13
     },
     {
       "quantity": 115,
-      "meta_data": {
-        "length": 21,
-        "width": 130
-      },
-      "rate": 14,
-      "image": "image13"
+      "length": 21,
+      "width": 130,
+      "rate": 14
     },
     {
       "quantity": 125,
-      "meta_data": {
-        "length": 24,
-        "width": 140
-      },
-      "rate": 15,
-      "image": "image14"
+      "length": 24,
+      "width": 140,
+      "rate": 15
     }
   ],
-  "material_value":5000,
-  "total_weight": 100,
-  "vehicle_no": 455,
-  "total_weight": 333,
   "material_value": 123456,
+  "total_weight": 333,
+  "vehicle_no": 455,
   "handling_charges": 0.5,
   "cgst": 6,
   "sgst": 6

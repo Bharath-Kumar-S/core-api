@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import cors from "cors";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
@@ -13,7 +14,7 @@ import { usersRouter } from "./router/users.routes";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT === undefined ? 5001 : process.env.PORT;
+const PORT = process.env.PORT || 5001;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -35,12 +36,18 @@ app.get("/api/healthcheck", (re, res) => {
   res.status(200).send("OK");
 });
 app.post("/subscribe", postSubscriber);
-app.use("/orders", orderRouter);
+app.use("/api/orders", orderRouter);
 app.get("/pdf/:id", generatePDF);
-app.get("/dc/:id", generateDcPDF)
+app.get("/dc/:id", generateDcPDF);
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
-     
+
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist", "index.html"));
+});
+
 const server = app.listen(PORT, async () => {
   console.log(
     `⚡️⚡️⚡️[server]: Server is running at https://localhost:${PORT} ⚡️⚡️⚡️`

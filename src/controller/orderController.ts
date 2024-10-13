@@ -23,6 +23,7 @@ export const postOrder = async (req: Request, res: Response) => {
     party_dc_date,
     material_value,
     date,
+    party_dc_no,
   } = req.body;
 
   const values = {
@@ -37,12 +38,13 @@ export const postOrder = async (req: Request, res: Response) => {
     cgst,
     sgst,
     total_weight,
-    material_value
+    material_value,
+    party_dc_no
   };
 
   const dc_no = (await Orders.estimatedDocumentCount()) + 1;
   const invoice_no = dc_no;
-  const party_dc_no = dc_no;
+  const our_dc_no = dc_no;
   const calculatedItems = items.map(
     (item: { quantity: number; rate: number }) => {
       return {
@@ -60,13 +62,13 @@ export const postOrder = async (req: Request, res: Response) => {
   )+handling_charges;
   const calculatedSgst = calculateSgst(net_total);
   const calculatedCgst = calculateCgst(net_total);
-  const gross_total = net_total + calculatedSgst + calculatedCgst;
+  const gross_total = (net_total + calculatedSgst + calculatedCgst).toFixed(2);
 
   const updatedValues: OrderType = {
     ...values,
     dc_no,
     invoice_no,
-    party_dc_no,
+    our_dc_no,
     party_dc_date,
     date,
     items: calculatedItems,
@@ -99,6 +101,7 @@ export const postOrder = async (req: Request, res: Response) => {
       sgst,
       dc_no,
       invoice_no,
+      our_dc_no,
       party_dc_no,
       party_dc_date,
       date,
@@ -382,7 +385,7 @@ export const generatePDF = async (req: Request, res: Response) => {
               <div>
                  <div class="grid grid-cols-12 pt-1 text-center">
                    <div class="col-span-1 ">${index + 1}</div>
-                   <div class="col-span-7 text-left pl-5 ">${item.meta_data.length} x ${item.meta_data.width }</div>
+                   <div class="col-span-7 text-left pl-5 ">${item.length} x ${item.width }</div>
                    <div class="col-span-1 ">${item.quantity}</div>
                    <div class="col-span-1 "> ₹ ${item.rate}</div>
                    <div class="col-span-2 "> ₹ ${item.amount}</div>

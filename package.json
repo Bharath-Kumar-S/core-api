@@ -1,7 +1,9 @@
 {
   "scripts": {
     "dev": "nodemon --exec ts-node --files src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc",
+    "start": "node dist/index.js",
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

@@ -49,18 +49,16 @@ const orderSchema = new mongoose.Schema<OrderType>(
     },
     items: [
       {
-        meta_data: {
-          length: {
-            type: Number,
-            required: [true, "length is required"],
-          },
-          width: {
-            type: Number,
-            required: [true, "width is required"],
-          },
-          height: {
-            type: Number,
-          },
+        length: {
+          type: Number,
+          required: [true, "length is required"],
+        },
+        width: {
+          type: Number,
+          required: [true, "width is required"],
+        },
+        height: {
+          type: Number,
         },
         quantity: {
           type: Number,
@@ -76,7 +74,7 @@ const orderSchema = new mongoose.Schema<OrderType>(
         },
         image: {
           type: String,
-          required: [true, "image is required"],
+          
         },
       },
     ],

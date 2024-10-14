@@ -263,7 +263,7 @@ export const generateDcPDF = async (req: Request, res: Response) => {
               <div>
                  <div class="grid grid-cols-12 text-center pt-2">
                    <div class="col-span-1">${index + 1}</div>
-                   <div class="col-span-8 text-left pl-5">${item.meta_data.length} x ${item.meta_data.width }</div>
+                   <div class="col-span-8 text-left pl-5">${item.length} x ${item.width }</div>
                    <div class="col-span-3">${item.quantity}</div>
                  </div>
                </div>

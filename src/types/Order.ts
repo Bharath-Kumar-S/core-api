@@ -4,6 +4,7 @@ export type OrderType = {
   dc_no: Number;
   invoice_no: Number;
   date: String;
+  our_dc_no: Number;
   party_dc_no: Number;
   party_dc_date: String;
   party_gstin: String;
@@ -11,13 +12,9 @@ export type OrderType = {
   product_description: String;
   items: [
     {
-      meta_data: {
-        length: Number;
-        width: Number;
-      };
+      length: Number;
+      width: Number;
       quantity: Number;
-      
-      total_weight: Number;
       rate: Number;
       amount: Number;
       image: String;

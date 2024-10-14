@@ -115,7 +115,6 @@ export const generateDcPDF = async (req: Request, res: Response) => {
     const formattedDcdate = date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
 
     
-    
     const htmlContent = `
    <!DOCTYPE html>
 <html lang="en">

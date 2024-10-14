@@ -8,7 +8,6 @@ const item = () => {
       length: faker.number.int({ min: 100, max: 500 }),
       width: faker.number.int({ min: 100, max: 500 }),
     },
-    material_value: faker.number.int({ min: 1000, max: 50000 }),
     rate: faker.number.int({ min: 100, max: 500 }),
     image: faker.internet.url(),
   };
@@ -36,6 +35,7 @@ const getMockOrder = () => {
     product_description: faker.word.words({ count: 8 }),
     items: getItemMock(10),
     vehicle_no: faker.internet.mac().replace(/:/g, "-"),
+    material_value: faker.number.int({ min: 1000, max: 50000 }),
     total_weight: faker.number.int({ min: 100, max: 1000 }),
     handling_charges: faker.number.int({ min: 50, max: 100 }),
     cgst: 6,

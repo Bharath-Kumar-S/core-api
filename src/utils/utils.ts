@@ -17,16 +17,40 @@ export const calculateCgst = (amount: number) => {
 };
 
 export const numberToWords = (num: number): string => {
-  const ones = ['', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE']
-  const teens = ['TEN', 'ELEVEN', 'TWELVE', 'THIRTEEN', 'FOURTEEN', 'FIFTEEN', 'SIXTEEN', 'SEVENTEEN', 'EIGHTEEN', 'NINETEEN']
+  const ones = ['', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'];
+  const teens = ['TEN', 'ELEVEN', 'TWELVE', 'THIRTEEN', 'FOURTEEN', 'FIFTEEN', 'SIXTEEN', 'SEVENTEEN', 'EIGHTEEN', 'NINETEEN'];
   const tens = ['', '', 'TWENTY', 'THIRTY', 'FORTY', 'FIFTY', 'SIXTY', 'SEVENTY', 'EIGHTY', 'NINETY'];
-  const thousands = ['', 'THOUSAND', 'LAKH', 'BILLION'];
+  const thousands = ['', 'THOUSAND', 'LAKH', 'CRORE'];
+
+  // Helper function to convert numbers less than 1000 to words
+  const helper = (n: number): string => {
+    let word = '';
+
+    if (n > 99) {
+      word += ones[Math.floor(n / 100)] + ' HUNDRED ';
+      n = n % 100;
+    }
+
+    if (n > 19) {
+      word += tens[Math.floor(n / 10)] + ' ';
+      n = n % 10;
+    } else if (n >= 10) {
+      word += teens[n - 10] + ' ';
+      n = 0;
+    }
+
+    if (n > 0) {
+      word += ones[n] + ' ';
+    }
+
+    return word.trim();
+  };
 
   if (isNaN(num)) {
     throw new Error('Invalid input. Please enter a valid number.');
   }
 
-  if (num === 0) return 'zero';
+  if (num === 0) return 'ZERO';
 
   let integerPart = Math.floor(num);
   let decimalPart = Math.round((num - integerPart) * 100);
@@ -34,28 +58,41 @@ export const numberToWords = (num: number): string => {
   let result = '';
   let i = 0;
   let resultNumber = integerPart;
+
   while (resultNumber > 0) {
-    if (resultNumber % 1000 !== 0) {
-      result = helper(resultNumber % 1000) + ' ' + thousands[i] + ' ' + result;
+    let currentGroup: number;
+
+    if (i === 0) {
+      // First group is thousands (3 digits)
+      currentGroup = resultNumber % 1000;
+      resultNumber = Math.floor(resultNumber / 1000);
+    } else {
+      // Subsequent groups are in pairs (2 digits)
+      currentGroup = resultNumber % 100;
+      resultNumber = Math.floor(resultNumber / 100);
     }
-    resultNumber = Math.floor(resultNumber / 1000);
+
+    if (currentGroup !== 0) {
+      const groupWord = helper(currentGroup);
+      const thousandWord = thousands[i];
+      result = `${groupWord} ${thousandWord} ${result}`.trim() + ' ';
+    }
+
     i++;
   }
 
+  result = result.trim();
+
   if (decimalPart > 0) {
-    result += ' RUPEES AND ' + helper(decimalPart) + ' PAISE';
+    const paiseWord = helper(decimalPart);
+    result += ` RUPEES AND ${paiseWord} PAISE`;
+  } else {
+    result += ' RUPEES';
   }
 
   return result.trim();
-
-  function helper(num: number): string {
-    if (num === 0) return '';
-    if (num < 10) return ones[num];
-    if (num < 20) return teens[num - 10];
-    if (num < 100) return tens[Math.floor(num / 10)] + (num % 10 !== 0 ? ' ' + ones[num % 10] : '');
-    return ones[Math.floor(num / 100)] + ' HUNDRED' + (num % 100 !== 0 ? ' ' + helper(num % 100) : '');
-  }
 };
+
 export const generateDcPDF = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;

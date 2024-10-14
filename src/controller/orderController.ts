@@ -60,7 +60,8 @@ export const postOrder = async (req: Request, res: Response) => {
   )+handling_charges;
   const calculatedSgst = calculateSgst(net_total);
   const calculatedCgst = calculateCgst(net_total);
-  const gross_total = net_total + calculatedSgst + calculatedCgst;
+  const gross_total = (net_total + calculatedSgst + calculatedCgst).toFixed(2);
+
 
   const updatedValues: OrderType = {
     ...values,
